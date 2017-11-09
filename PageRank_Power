@@ -1,0 +1,13 @@
+# Here P is some matrix of information, for say perhaps a list of websites
+eye_sparse = sparse(eye(n))
+A = eye_sparse - alpha*P
+F = lufact(A)
+x = (1-alpha)*v
+maxit = 1000
+for i=1:maxit
+  x = F\x
+  x = x./norm(x)
+  lam = x'*A*x
+  println(i)
+end
+x[1]
