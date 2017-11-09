@@ -1,4 +1,5 @@
 # Here P is some matrix of information, for say perhaps a list of websites
+# For convergence purposes (say matrix is too big), we used the inverse variant
 eye_sparse = sparse(eye(n))
 A = eye_sparse - alpha*P
 F = lufact(A)
