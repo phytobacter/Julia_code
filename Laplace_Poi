@@ -1,0 +1,24 @@
+function laplacian_original(n::Integer, f::Function)
+    N = (n+1)^2
+    A = zeros(N,N)
+    fvec = zeros(N)
+    G = reshape(1:N, n+1, n+1)' # index map, like we saw before;
+    h = 1.0/(n)
+    for i=0:n
+        for j=0:n
+            row = G[i+1,j+1]
+            if i==0 || j == 0 || i == n || j == n
+                # we are on a boudnary
+                fvec[row] = 0.0
+                A[row,row] = 1
+            else
+                fvec[row] = f(i*h, j*h)*h^2
+                idx1 = [G[i,j+1] G[i+2,j+1] G[i+1,j] G[i+1,j+2]]
+                idx2 = G[i+1,j+1]
+                A[row,idx1] = 1
+                A[row, idx2] = -4
+            end
+        end
+    end
+    return A, fvec
+end
